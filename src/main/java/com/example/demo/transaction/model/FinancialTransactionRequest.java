@@ -4,19 +4,20 @@ import java.time.Instant;
 import java.util.*;
 
 public class FinancialTransactionRequest {
-    private final List<FinancialTransactionItem> financialTransactionItems;
+    private final Set<FinancialTransactionItem> financialTransactionItems;
+    private final TransactionType transactionType;
     private final String financialTransactionReference;
     private final Instant financialTransactionDate;
 
-    public FinancialTransactionRequest(String financialTransactionReference, Instant financialTransactionDate, FinancialTransactionItem... financialTransactionItems) {
+    public FinancialTransactionRequest(TransactionType transactionType, String financialTransactionReference, Instant financialTransactionDate, Set<FinancialTransactionItem> financialTransactionItems) {
+
+        this.transactionType = transactionType;
         this.financialTransactionReference = financialTransactionReference;
         this.financialTransactionDate = financialTransactionDate;
-        List<FinancialTransactionItem> list = new ArrayList<>();
-        Collections.addAll(list, financialTransactionItems);
-        this.financialTransactionItems = list;
+        this.financialTransactionItems = financialTransactionItems;
     }
 
-    public List<FinancialTransactionItem> getFinancialTransactionItems() {
+    public Set<FinancialTransactionItem> getFinancialTransactionItems() {
         return financialTransactionItems;
     }
 
@@ -28,27 +29,31 @@ public class FinancialTransactionRequest {
         return financialTransactionDate;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (!(obj instanceof FinancialTransactionRequest)) return false;
-        FinancialTransactionRequest that = (FinancialTransactionRequest) obj;
-        return Objects.equals(financialTransactionItems, that.financialTransactionItems)
-                && Objects.equals(financialTransactionReference, that.financialTransactionReference)
-                && Objects.equals(financialTransactionDate, that.financialTransactionDate);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(financialTransactionItems, financialTransactionReference, financialTransactionDate);
+    public TransactionType getTransactionType() {
+        return transactionType;
     }
 
     @Override
     public String toString() {
         return new StringJoiner(", ", FinancialTransactionRequest.class.getSimpleName() + "[", "]")
-                .add("financialTransactions=" + financialTransactionItems)
-                .add("financialTransactionReference=" + financialTransactionReference)
+                .add("financialTransactionItems=" + financialTransactionItems)
+                .add("transactionType=" + transactionType)
+                .add("financialTransactionReference='" + financialTransactionReference + "'")
                 .add("financialTransactionDate=" + financialTransactionDate)
                 .toString();
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (!(obj instanceof FinancialTransactionRequest)) return false;
+        FinancialTransactionRequest that = (FinancialTransactionRequest) obj;
+        return Objects.equals(financialTransactionItems, that.financialTransactionItems) && transactionType == that.transactionType && Objects.equals(financialTransactionReference, that.financialTransactionReference) && Objects.equals(financialTransactionDate, that.financialTransactionDate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(financialTransactionItems, transactionType, financialTransactionReference, financialTransactionDate);
+    }
+
 }

@@ -9,11 +9,13 @@ public class FinancialAccount {
     private final String accountNumber;
     private final BigDecimal accountBalance;
     private final  String customerId;
+    private final  FinancialAccountType financialAccountType;
 
-    public FinancialAccount(String accountNumber, BigDecimal accountBalance, String customerId) {
+    public FinancialAccount(String accountNumber, BigDecimal accountBalance, String customerId, FinancialAccountType financialAccountType) {
         this.accountNumber = accountNumber;
         this.accountBalance = accountBalance;
         this.customerId = customerId;
+        this.financialAccountType = financialAccountType;
     }
 
     public String getAccountNumber() {
@@ -26,6 +28,10 @@ public class FinancialAccount {
 
     public String getCustomerId() {
         return customerId;
+    }
+
+    public FinancialAccountType getFinancialAccountType() {
+        return financialAccountType;
     }
 
     @Override

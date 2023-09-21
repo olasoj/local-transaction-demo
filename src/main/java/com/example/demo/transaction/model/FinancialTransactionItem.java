@@ -10,11 +10,13 @@ public class FinancialTransactionItem {
     private final String accountNumber;
     private final BigDecimal amount;
     private final FinancialTransactionFlow financialTransactionFlow;
+    private final String description;
 
-    public FinancialTransactionItem(String accountNumber, BigDecimal amount, FinancialTransactionFlow financialTransactionFlow) {
+    public FinancialTransactionItem(String accountNumber, BigDecimal amount, FinancialTransactionFlow financialTransactionFlow, String description) {
         this.accountNumber = accountNumber;
         this.financialTransactionFlow = financialTransactionFlow;
         this.amount = amount;
+        this.description = description;
     }
 
     public String getAccountNumber() {
@@ -29,12 +31,17 @@ public class FinancialTransactionItem {
         return financialTransactionFlow;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
     @Override
     public String toString() {
         return new StringJoiner(", ", FinancialTransactionItem.class.getSimpleName() + "[", "]")
                 .add("accountNumber='" + accountNumber + "'")
                 .add("amount=" + amount)
                 .add("financialTransactionFlow=" + financialTransactionFlow)
+                .add("description=" + description)
                 .toString();
     }
 
@@ -43,12 +50,14 @@ public class FinancialTransactionItem {
         if (this == obj) return true;
         if (!(obj instanceof FinancialTransactionItem that)) return false;
         return Objects.equals(accountNumber, that.accountNumber)
-                && Objects.equals(amount, that.amount) && financialTransactionFlow == that.financialTransactionFlow;
+                && Objects.equals(amount, that.amount)
+                && Objects.equals(description, that.description)
+                && financialTransactionFlow == that.financialTransactionFlow;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(accountNumber, amount, financialTransactionFlow);
+        return Objects.hash(accountNumber, amount, financialTransactionFlow, description);
     }
 
 }
